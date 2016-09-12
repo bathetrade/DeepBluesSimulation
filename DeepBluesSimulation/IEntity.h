@@ -13,18 +13,23 @@ public:
 	void SetPosition(Point);
 	int GetHealth() const;
 	void SetHealth(int);
+	void SetDamage(int);
+	int GetDamage() const;
 	bool Damage(int amount);
 	void SetBeatsPerMove(int);
 	void SetBeatOffset(int);
-	bool TimeToMove();
+	int GetPriority() const;
 
 protected:
 	virtual void PerformUpdate() = 0;
+	void SetPriority(int);
 
 private:
 	int _health;
 	int _beat;
 	int _beatsPerMove;
+	int _priority;
+	int _damage;
 	Point _position;
 };
 

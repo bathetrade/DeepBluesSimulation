@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cadence.h" />
+    <ClInclude Include="ChessPiece.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="DeepBluesLevel.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="EnemyHealth.h" />
     <ClInclude Include="FileLogger.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ILevel.h" />
@@ -23,10 +25,12 @@
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="IWeapon.h" />
+    <ClInclude Include="PointMath.h" />
     <ClInclude Include="WeaponDamage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cadence.cpp" />
+    <ClCompile Include="ChessPiece.cpp" />
     <ClCompile Include="DeepBluesLevel.cpp" />
     <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="IEntity.cpp" />

@@ -3,9 +3,11 @@
 
 #include "ILevel.h"
 #include "ILogger.h"
+#include "Pawn.h"
 
 #include <vector>
 #include <unordered_map>
+#include <memory>
 
 class DeepBluesLevel : ILevel
 {
@@ -23,6 +25,15 @@ public:
 	virtual bool HasEntity(Point) const override;
 	virtual bool InBounds(Point) const override;
 
+protected:
+	void SetPawnHealth(int);
+	//int GetBishopHealth() const;
+	//int GetRookHealth() const;
+	//int GetKnightHealth() const;
+	//int GetQueenHealth() const;
+	//int GetKingHealth() const;
+	
+
 private:
 
 	//State
@@ -31,9 +42,29 @@ private:
 	Point _minBounds;
 	Point _maxBounds;
 	ILogger& _logger;
+	Pawn _pawns[8];
+
+	//Health
+	int _pawnHealth;
+	int _bishopHealth;
+	int _rookHealth;
+	int _knightHealth;
+	int _queenHealth;
+	int _kingHealth;
 
 	//Support
 	void UpdateSpatialEntity(Point, Point);
+	void InitializeHealth();
+	void AddEntity(IEntity*, Point);
+
+	//Creation
+	void SetPawns();
+	//void CreateBishops();
+	//void CreateRooks();
+	//void CreateKnights();
+	//void CreateQueen();
+	//void CreateKing();
+
 };
 
 #endif

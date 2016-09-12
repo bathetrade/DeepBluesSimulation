@@ -33,6 +33,20 @@ void IEntity::SetHealth(int health)
 	_health = health;
 }
 
+void IEntity::SetDamage(int damage)
+{
+	if (damage < 0)
+	{
+		damage = 0;
+	}
+	_damage = damage;
+}
+
+int IEntity::GetDamage() const
+{
+	return _damage;
+}
+
 bool IEntity::Damage(int amount)
 {
 	_health -= amount;
@@ -47,4 +61,18 @@ void IEntity::SetBeatsPerMove(int bpm)
 void IEntity::SetBeatOffset(int offset)
 {
 	_beat = offset;
+}
+
+int IEntity::GetPriority() const
+{
+	return _priority;
+}
+
+void IEntity::SetPriority(int priority)
+{
+	if (priority < 0)
+	{
+		priority = 0;
+	}
+	_priority = priority;
 }

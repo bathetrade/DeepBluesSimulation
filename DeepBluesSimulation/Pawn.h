@@ -1,19 +1,22 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "IEntity.h"
-#include "ILevel.h"
+#include "ChessPiece.h"
 
-class Pawn : IEntity
+#include <vector>
+
+class Pawn : public ChessPiece
 {
 public:
-	Pawn(ILevel&, const IEntity&);
+	Pawn();
 	virtual std::string ToString() const override;
 protected:
 	virtual void PerformUpdate() override;
 private:
-	ILevel& _level;
-	const IEntity& _target;
+	std::vector<Point> GetAttackPoints() const;
+	Point GetMovePoint() const;
+	bool TryAttackTarget() const;
+	void TryMove();
 };
 
 #endif

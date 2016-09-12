@@ -8,6 +8,7 @@
 Cadence::Cadence(ILevel& level) : _level(level)
 {
 	SetHealth(Constants::CadenceHealthDefault);
+	SetPriority(0);
 }
 
 /**********************************************************/

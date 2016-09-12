@@ -1,4 +1,5 @@
 #include "DeepBluesLevel.h"
+#include "EnemyHealth.h"
 
 #include <algorithm>
 #include <sstream>
@@ -9,11 +10,18 @@ DeepBluesLevel::DeepBluesLevel(ILogger& logger) : _logger(logger)
 {
 	_minBounds = Point(0, 0);
 	_maxBounds = Point(8, 8);
+	InitializeHealth();
 }
 
+//TODO: make idempotent
 void DeepBluesLevel::Initialize()
 {
-	//TODO: initialize board
+	SetPawns();
+	//CreateBishops();
+	//CreateRooks();
+	//CreateKnights();
+	//CreateQueen();
+	//CreateKing();
 }
 
 IEntity& DeepBluesLevel::GetEntity(Point point) const
@@ -98,10 +106,41 @@ bool DeepBluesLevel::InBounds(Point point) const
 		point.X <= _maxBounds.X && point.Y <= _maxBounds.Y;
 }
 
+void DeepBluesLevel::SetPawnHealth(int health)
+{
+	_pawnHealth = health;
+}
+
 void DeepBluesLevel::UpdateSpatialEntity(Point oldPoint, Point newPoint)
 {
 	auto entityIterator = _spatialEntityMap.find(oldPoint.ToString());
 	auto entityPointer = entityIterator->second;
 	_spatialEntityMap.erase(entityIterator);
 	_spatialEntityMap[newPoint.ToString()] = entityPointer;
+}
+
+void DeepBluesLevel::InitializeHealth()
+{
+	_pawnHealth = EnemyHealth::DeepBlues1PawnHealth;
+	_bishopHealth = EnemyHealth::DeepBlues1BishopHealth;
+	_rookHealth = EnemyHealth::DeepBlues1RookHealth;
+	_knightHealth = EnemyHealth::DeepBlues1KnightHealth;
+	_queenHealth = EnemyHealth::DeepBlues1QueenHealth;
+	_kingHealth = EnemyHealth::DeepBlues1KingHealth;
+}
+
+void DeepBluesLevel::AddEntity(IEntity* entity, Point point)
+{
+	_entities.push_back(entity);
+	_spatialEntityMap[point.ToString()] = entity;
+}
+void DeepBluesLevel::SetPawns()
+{
+	for (int col = 0; col < 8; ++col)
+	{
+		auto position = Point(1, col);
+		_pawns[col].SetHealth(_pawnHealth);
+		_pawns[col].SetPosition(position);
+		AddEntity(_pawns + col, position);
+	}
 }
