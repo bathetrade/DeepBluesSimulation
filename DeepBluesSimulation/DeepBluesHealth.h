@@ -1,7 +1,7 @@
-#ifndef ENEMY_HEALTH_H
-#define ENEMY_HEALTH_H
+#ifndef DEEP_BLUES_HEALTH_H
+#define DEEP_BLUES_HEALTH_H
 
-class EnemyHealth
+class DeepBluesHealth
 {
 public:
 	static const int DeepBlues1PawnHealth = 1;

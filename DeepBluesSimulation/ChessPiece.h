@@ -6,12 +6,13 @@
 
 class ChessPiece : public IEntity
 {
-protected:
-	ChessPiece();
+public:
 	void SetLevel(ILevel& level);
 	void SetTarget(IEntity& target);
 	ILevel& GetLevel() const;
 	IEntity& GetTarget() const;
+protected:
+	ChessPiece();
 private:
 	ILevel* _level;
 	IEntity* _target;

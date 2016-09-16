@@ -17,7 +17,9 @@
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="DeepBluesLevel.h" />
     <ClInclude Include="Direction.h" />
-    <ClInclude Include="EnemyHealth.h" />
+    <ClInclude Include="DeepBluesDamage.h" />
+    <ClInclude Include="DeepBluesHealth.h" />
+    <ClInclude Include="EntityEntry.h" />
     <ClInclude Include="FileLogger.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ILevel.h" />
@@ -32,6 +34,7 @@
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="ChessPiece.cpp" />
     <ClCompile Include="DeepBluesLevel.cpp" />
+    <ClCompile Include="EntityEntry.cpp" />
     <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="IEntity.cpp" />
     <ClCompile Include="Main.cpp" />

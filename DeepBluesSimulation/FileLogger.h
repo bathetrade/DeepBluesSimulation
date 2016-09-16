@@ -5,7 +5,7 @@
 
 #include <fstream>
 
-class FileLogger : ILogger
+class FileLogger : public ILogger
 {
 public:
 	FileLogger(std::string);

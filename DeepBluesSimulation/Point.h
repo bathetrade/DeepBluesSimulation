@@ -27,7 +27,7 @@ public:
 	{
 		return Point(X - p.X, Y - p.Y);
 	}
-	bool operator=(Point p) const
+	bool operator==(Point p) const
 	{
 		return X == p.X && Y == p.Y;
 	}

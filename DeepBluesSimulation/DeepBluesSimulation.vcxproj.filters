@@ -40,6 +40,18 @@
     <Filter Include="Source Files\Logging">
       <UniqueIdentifier>{94081330-1e29-434d-b019-4af6b645df50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Constants\EnemyDamage">
+      <UniqueIdentifier>{81cbccd6-2354-4096-a8f3-b9af2a8b28aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constants\EnemyHealth">
+      <UniqueIdentifier>{95f4562e-c988-4f7c-a429-bd0d22df6258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constants\EnemyDamage\DeepBlues">
+      <UniqueIdentifier>{ddf8bdf3-9316-4f24-bd84-5ff81a717f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constants\EnemyHealth\DeepBlues">
+      <UniqueIdentifier>{53f19b10-6cf8-4ffb-86db-db09191a8e4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
@@ -84,11 +96,17 @@
     <ClInclude Include="PointMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyHealth.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="ChessPiece.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityEntry.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="DeepBluesHealth.h">
+      <Filter>Header Files\Constants\EnemyHealth\DeepBlues</Filter>
+    </ClInclude>
+    <ClInclude Include="DeepBluesDamage.h">
+      <Filter>Header Files\Constants\EnemyDamage\DeepBlues</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +129,9 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="ChessPiece.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityEntry.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>

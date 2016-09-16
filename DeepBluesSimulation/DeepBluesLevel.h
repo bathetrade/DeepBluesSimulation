@@ -4,6 +4,8 @@
 #include "ILevel.h"
 #include "ILogger.h"
 #include "Pawn.h"
+#include "EntityEntry.h"
+#include "Cadence.h"
 
 #include <vector>
 #include <unordered_map>
@@ -26,22 +28,32 @@ public:
 	virtual bool InBounds(Point) const override;
 
 protected:
+	//Health
 	void SetPawnHealth(int);
-	//int GetBishopHealth() const;
-	//int GetRookHealth() const;
-	//int GetKnightHealth() const;
-	//int GetQueenHealth() const;
-	//int GetKingHealth() const;
-	
+	void SetBishopHealth(int);
+	void SetRookHealth(int);
+	void SetKnightHealth(int);
+	void SetQueenHealth(int);
+	void SetKingHealth(int);
+
+	//Damage
+	void SetPawnDamage(int);
+	void SetBishopDamage(int);
+	void SetRookDamage(int);
+	void SetKnightDamage(int);
+	void SetQueenDamage(int);
+	void SetKingDamage(int);
 
 private:
 
 	//State
-	std::vector<IEntity*> _entities;
+	std::vector<EntityEntry> _entities;
 	std::unordered_map<std::string, IEntity*> _spatialEntityMap;
+	bool _removeDeletedEntities;
 	Point _minBounds;
 	Point _maxBounds;
 	ILogger& _logger;
+	Cadence _cadence;
 	Pawn _pawns[8];
 
 	//Health
@@ -52,10 +64,21 @@ private:
 	int _queenHealth;
 	int _kingHealth;
 
+	//Damage
+	int _pawnDamage;
+	int _bishopDamage;
+	int _rookDamage;
+	int _knightDamage;
+	int _queenDamage;
+	int _kingDamage;
+
 	//Support
 	void UpdateSpatialEntity(Point, Point);
 	void InitializeHealth();
+	void InitializeDamage();
 	void AddEntity(IEntity*, Point);
+	bool MarkEntityForDeletionIfItExists(IEntity* entity);
+	void CleanListIfNecessary();
 
 	//Creation
 	void SetPawns();

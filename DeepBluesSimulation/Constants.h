@@ -4,7 +4,7 @@
 class Constants
 {
 public:
-	static const int CadenceHealthDefault = 3;
+	static const int CadenceHealthDefault = 6;
 };
 
 #endif

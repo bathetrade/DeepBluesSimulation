@@ -9,7 +9,7 @@
 
 #include <memory>
 
-class Cadence : IEntity
+class Cadence : public IEntity
 {
 public:
 	//Constructors
@@ -22,6 +22,10 @@ public:
 	//Cadence
 	void SetMove(Direction);
 	void EquipWeapon(IWeapon* weapon);
+
+protected:
+	//IEntity
+	virtual void PerformUpdate() override;
 
 private:
 	//State

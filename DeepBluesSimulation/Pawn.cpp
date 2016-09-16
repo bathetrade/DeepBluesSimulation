@@ -40,7 +40,7 @@ Point Pawn::GetMovePoint() const
 //TODO: generalize (logic is similar for all enemies)
 bool Pawn::TryAttackTarget() const
 {
-	auto target = GetTarget();
+	IEntity& target = GetTarget();
 	auto targetPosition = target.GetPosition();
 	auto attackPoints = GetAttackPoints();
 	auto attackPosition = find(attackPoints.begin(), attackPoints.end(), targetPosition);
@@ -57,6 +57,6 @@ bool Pawn::TryAttackTarget() const
 void Pawn::TryMove()
 {
 	auto desiredPosition = GetMovePoint();
-	auto level = GetLevel();
+	ILevel& level = GetLevel();
 	level.RequestMove(*this, desiredPosition);
 }
