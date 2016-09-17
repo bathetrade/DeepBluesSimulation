@@ -105,6 +105,12 @@
     <ClInclude Include="DeepBluesDamage.h">
       <Filter>Header Files\Constants\EnemyDamage\DeepBlues</Filter>
     </ClInclude>
+    <ClInclude Include="LevelBasedEntity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cadence.cpp">
@@ -126,6 +132,12 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="EntityEntry.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBasedEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>

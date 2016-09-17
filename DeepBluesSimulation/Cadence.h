@@ -13,7 +13,7 @@ class Cadence : public IEntity
 {
 public:
 	//Constructors
-	Cadence(ILevel&);
+	Cadence();
 
 	//IEntity
 	virtual void Update() override;
@@ -32,7 +32,6 @@ private:
 	Point _position;
 	bool _moveSet;
 	Direction _moveDirection;
-	ILevel& _level;
 	std::unique_ptr<IWeapon> _weapon;
 
 	//Support

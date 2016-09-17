@@ -5,7 +5,7 @@
 /**********************************************************/
 /***************** Constructors ***************************/
 /**********************************************************/
-Cadence::Cadence(ILevel& level) : _level(level)
+Cadence::Cadence()
 {
 	SetHealth(Constants::CadenceHealthDefault);
 	SetPriority(0);
@@ -20,9 +20,10 @@ void Cadence::Update()
 	{
 		//Try attacking. If the attack failed, try moving.
 		auto desiredPosition = GetDesiredMovePoint();
-		if (!_weapon->Attack(*this, _level, _moveDirection))
+		ILevel& level = GetLevel();
+		if (!_weapon->Attack(*this, level, _moveDirection))
 		{
-			_level.RequestMove(*this, desiredPosition);
+			level.RequestMove(*this, desiredPosition);
 		}
 		_moveSet = false;
 	}

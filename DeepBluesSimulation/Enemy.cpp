@@ -4,11 +4,6 @@ Enemy::Enemy()
 {
 }
 
-void Enemy::SetLevel(ILevel& level)
-{
-	_level = &level;
-}
-
 void Enemy::SetTarget(IEntity& target)
 {
 	_target = &target;
@@ -17,9 +12,4 @@ void Enemy::SetTarget(IEntity& target)
 IEntity& Enemy::GetTarget() const
 {
 	return *_target;
-}
-
-ILevel& Enemy::GetLevel() const
-{
-	return *_level;
 }
