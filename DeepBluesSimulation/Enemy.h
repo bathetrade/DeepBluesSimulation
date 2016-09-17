@@ -1,10 +1,10 @@
-#ifndef CHESS_PIECE_H
-#define CHESS_PIECE_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include "IEntity.h"
 #include "ILevel.h"
 
-class ChessPiece : public IEntity
+class Enemy : public IEntity
 {
 public:
 	void SetLevel(ILevel& level);
@@ -12,7 +12,7 @@ public:
 	ILevel& GetLevel() const;
 	IEntity& GetTarget() const;
 protected:
-	ChessPiece();
+	Enemy();
 private:
 	ILevel* _level;
 	IEntity* _target;

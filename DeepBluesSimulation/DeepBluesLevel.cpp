@@ -1,13 +1,14 @@
 #include "DeepBluesLevel.h"
 #include "DeepBluesHealth.h"
 #include "DeepBluesDamage.h"
+#include "Dagger.h"
 
 #include <algorithm>
 #include <sstream>
 
 using namespace std;
 
-DeepBluesLevel::DeepBluesLevel(ILogger& logger) : _logger(logger), _cadence(*this)
+DeepBluesLevel::DeepBluesLevel(Cadence& cadence, ILogger& logger) : _cadence(cadence), _logger(logger)
 {
 	_minBounds = Point(0, 0);
 	_maxBounds = Point(8, 8);
@@ -87,7 +88,7 @@ void DeepBluesLevel::UpdateEntities()
 	//Update non-deleted entities
 	for_each(_entities.begin(), _entities.end(), [](EntityEntry& entry)
 	{
-		if (entry.Deleted == false)
+		if (!entry.Deleted)
 		{
 			entry.Entity->Update();
 		}
@@ -105,6 +106,11 @@ bool DeepBluesLevel::InBounds(Point point) const
 {
 	return point.X >= _minBounds.X && point.Y >= _minBounds.Y && 
 		point.X <= _maxBounds.X && point.Y <= _maxBounds.Y;
+}
+
+void DeepBluesLevel::PrintBoard() const
+{
+
 }
 
 void DeepBluesLevel::SetPawnHealth(int health)
@@ -207,7 +213,7 @@ bool DeepBluesLevel::MarkEntityForDeletionIfItExists(IEntity* entity)
 	//Mark entity for deletion, if it exists and isn't already marked
 	auto entityIterator = std::find_if(_entities.begin(), _entities.end(), [&](EntityEntry entry)
 	{
-		return (entry.Entity == entity) && (entry.Deleted == false);
+		return (entry.Entity == entity) && (!entry.Deleted);
 	});
 
 	//Does the entity exist?
@@ -230,13 +236,15 @@ void DeepBluesLevel::CleanListIfNecessary()
 		auto it = _entities.begin();
 		while (it != _entities.end())
 		{
-			if (it->Deleted == true)
+			if (it->Deleted)
 			{
 				it = _entities.erase(it);
 			}
 		}
+		_removeDeletedEntities = false;
 	}
 }
+
 
 void DeepBluesLevel::SetPawns()
 {

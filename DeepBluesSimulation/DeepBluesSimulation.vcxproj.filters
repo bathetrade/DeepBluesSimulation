@@ -96,9 +96,6 @@
     <ClInclude Include="PointMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChessPiece.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="EntityEntry.h">
       <Filter>Header Files\Levels</Filter>
     </ClInclude>
@@ -126,9 +123,6 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Pawn.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="ChessPiece.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="EntityEntry.cpp">

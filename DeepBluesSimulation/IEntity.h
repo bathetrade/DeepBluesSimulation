@@ -2,6 +2,7 @@
 #define IENTITY_H
 
 #include "Point.h"
+#include "ILevel.h"
 
 class IEntity
 {
@@ -9,6 +10,10 @@ public:
 	virtual void Update();
 	virtual std::string ToString() const = 0;
 
+	void SetLevel(ILevel& level);
+	void SetTarget(IEntity& target);
+	ILevel& GetLevel() const;
+	IEntity& GetTarget() const;
 	Point GetPosition() const;
 	void SetPosition(Point);
 	int GetHealth() const;
@@ -31,6 +36,8 @@ private:
 	int _priority;
 	int _damage;
 	Point _position;
+	ILevel* _level;
+	IEntity* _target;
 };
 
 #endif

@@ -8,7 +8,8 @@ using namespace std;
 int main()
 {
 	FileLogger logger("C:\\users\\derek\\desktop\\deepblueslog.txt");
-	DeepBluesLevel level(logger);
+	Cadence cadence;
+	DeepBluesLevel level(cadence, logger);
 	level.Initialize();
 	cin.get();
 	return 0;

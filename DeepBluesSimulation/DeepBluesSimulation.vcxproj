@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cadence.h" />
-    <ClInclude Include="ChessPiece.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="DeepBluesLevel.h" />
@@ -32,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cadence.cpp" />
-    <ClCompile Include="ChessPiece.cpp" />
     <ClCompile Include="DeepBluesLevel.cpp" />
     <ClCompile Include="EntityEntry.cpp" />
     <ClCompile Include="FileLogger.cpp" />

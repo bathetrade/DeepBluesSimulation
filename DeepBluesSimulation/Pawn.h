@@ -1,11 +1,11 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "ChessPiece.h"
+#include "Enemy.h"
 
 #include <vector>
 
-class Pawn : public ChessPiece
+class Pawn : public Enemy
 {
 public:
 	Pawn();

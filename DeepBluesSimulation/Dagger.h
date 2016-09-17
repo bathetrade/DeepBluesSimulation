@@ -3,7 +3,7 @@
 
 #include "IWeapon.h"
 
-class Dagger : IWeapon
+class Dagger : public IWeapon
 {
 public:
 	virtual bool Attack(IEntity&, ILevel&, Direction direction) override;

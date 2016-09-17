@@ -16,7 +16,7 @@ class DeepBluesLevel : ILevel
 public:
 	
 	//Constructors
-	DeepBluesLevel(ILogger&);
+	DeepBluesLevel(Cadence&, ILogger&);
 
 	//ILevel
 	virtual void Initialize() override;
@@ -26,6 +26,9 @@ public:
 	virtual void UpdateEntities() override;
 	virtual bool HasEntity(Point) const override;
 	virtual bool InBounds(Point) const override;
+
+	//Level
+	void PrintBoard() const;
 
 protected:
 	//Health
@@ -47,13 +50,14 @@ protected:
 private:
 
 	//State
+	std::vector<std::vector<EntityEntry>> _board;
 	std::vector<EntityEntry> _entities;
 	std::unordered_map<std::string, IEntity*> _spatialEntityMap;
 	bool _removeDeletedEntities;
 	Point _minBounds;
 	Point _maxBounds;
 	ILogger& _logger;
-	Cadence _cadence;
+	Cadence& _cadence;
 	Pawn _pawns[8];
 
 	//Health

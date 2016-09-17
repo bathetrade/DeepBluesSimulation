@@ -1,7 +1,8 @@
 #ifndef ILEVEL_H
 #define ILEVEL_H
 
-#include "IEntity.h"
+class IEntity;
+
 #include "Point.h"
 
 class ILevel
