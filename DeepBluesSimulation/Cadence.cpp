@@ -1,5 +1,6 @@
 #include "Cadence.h"
 #include "Constants.h"
+#include "ILevel.h"
 #include <iostream>
 
 /**********************************************************/
@@ -21,7 +22,7 @@ void Cadence::Update()
 		//Try attacking. If the attack failed, try moving.
 		auto desiredPosition = GetDesiredMovePoint();
 		ILevel& level = GetLevel();
-		if (!_weapon->Attack(*this, level, _moveDirection))
+		if (_weapon == nullptr || !_weapon->Attack(*this, level, _moveDirection))
 		{
 			level.RequestMove(*this, desiredPosition);
 		}
@@ -60,16 +61,16 @@ Point Cadence::GetDesiredMovePoint() const
 	switch (_moveDirection)
 	{
 		case Direction::UP:
-			return _position + Point(0, -1);
+			return GetPosition() + Point(-1, 0);
 
 		case Direction::RIGHT:
-			return _position + Point(1, 0);
+			return GetPosition() + Point(0, 1);
 
 		case Direction::DOWN:
-			return _position + Point(0, 1);
+			return GetPosition() + Point(1, 0);
 
 		case Direction::LEFT:
-			return _position + Point(-1, 0);
+			return GetPosition() + Point(0, -1);
 
 		default:
 			throw std::runtime_error("Unimplemented direction");

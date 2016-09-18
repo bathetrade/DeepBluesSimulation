@@ -9,7 +9,7 @@ class ILevel
 {
 public:
 	virtual void Initialize() = 0;
-	virtual IEntity& GetEntity(Point) const = 0;
+	virtual IEntity* GetEntity(Point) const = 0;
 	virtual void RemoveEntity(IEntity&) = 0;
 	virtual void RequestMove(IEntity&, Point) = 0;
 	virtual void UpdateEntities() = 0;

@@ -2,7 +2,8 @@
 #define IENTITY_H
 
 #include "Point.h"
-#include "ILevel.h"
+
+class ILevel;
 
 class IEntity
 {

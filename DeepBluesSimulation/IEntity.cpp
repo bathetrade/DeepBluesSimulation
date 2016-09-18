@@ -2,14 +2,10 @@
 
 void IEntity::Update()
 {
-	if (_beat == _beatsPerMove)
+	if (++_beat == _beatsPerMove)
 	{
 		PerformUpdate();
 		_beat = 0;
-	}
-	else
-	{
-		++_beat;
 	}
 }
 
@@ -75,6 +71,10 @@ bool IEntity::Damage(int amount)
 
 void IEntity::SetBeatsPerMove(int bpm)
 {
+	if (bpm < 1)
+	{
+		bpm = 1;
+	}
 	_beatsPerMove = bpm;
 }
 

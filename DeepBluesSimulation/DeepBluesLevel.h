@@ -4,14 +4,15 @@
 #include "ILevel.h"
 #include "ILogger.h"
 #include "Pawn.h"
-#include "EntityEntry.h"
-#include "Cadence.h"
 
 #include <vector>
-#include <unordered_map>
 #include <memory>
 
-class DeepBluesLevel : ILevel
+class IEntity;
+class Pawn;
+class Cadence;
+
+class DeepBluesLevel : public ILevel
 {
 public:
 	
@@ -20,7 +21,7 @@ public:
 
 	//ILevel
 	virtual void Initialize() override;
-	virtual IEntity& GetEntity(Point) const override;
+	virtual IEntity* GetEntity(Point) const override;
 	virtual void RemoveEntity(IEntity&) override;
 	virtual void RequestMove(IEntity&, Point) override;
 	virtual void UpdateEntities() override;
@@ -50,12 +51,9 @@ protected:
 private:
 
 	//State
-	std::vector<std::vector<EntityEntry>> _board;
-	std::vector<EntityEntry> _entities;
-	std::unordered_map<std::string, IEntity*> _spatialEntityMap;
+	std::vector<std::vector<IEntity*>> _board;
+	std::vector<IEntity*> _entities;
 	bool _removeDeletedEntities;
-	Point _minBounds;
-	Point _maxBounds;
 	ILogger& _logger;
 	Cadence& _cadence;
 	Pawn _pawns[8];
@@ -77,14 +75,17 @@ private:
 	int _kingDamage;
 
 	//Support
-	void UpdateSpatialEntity(Point, Point);
+	void UpdateEntityPosition(IEntity*, Point);
 	void InitializeHealth();
 	void InitializeDamage();
-	void AddEntity(IEntity*, Point);
+	void InitializeBoard();
+	void AddEntity(IEntity*);
 	bool MarkEntityForDeletionIfItExists(IEntity* entity);
 	void CleanListIfNecessary();
+	size_t GetMaxStringWidth() const;
 
 	//Creation
+	void SetCadence();
 	void SetPawns();
 	//void CreateBishops();
 	//void CreateRooks();

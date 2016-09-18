@@ -1,4 +1,5 @@
 #include "Pawn.h"
+#include "ILevel.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ vector<Point> Pawn::GetAttackPoints() const
 	auto position = GetPosition();
 
 	attackPoints.push_back(position + Point(1, 1));
-	attackPoints.push_back(position + Point(-1, 1));
+	attackPoints.push_back(position + Point(1, -1));
 
 	return attackPoints;
 }
@@ -34,7 +35,7 @@ vector<Point> Pawn::GetAttackPoints() const
 Point Pawn::GetMovePoint() const
 {
 	auto position = GetPosition();
-	return position + Point(0, 1);
+	return position + Point(1, 0);
 }
 
 //TODO: generalize (logic is similar for all enemies)

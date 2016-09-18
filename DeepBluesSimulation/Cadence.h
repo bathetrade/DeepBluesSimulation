@@ -3,10 +3,7 @@
 
 #include "IEntity.h"
 #include "Direction.h"
-#include "Point.h"
-#include "ILevel.h"
 #include "IWeapon.h"
-
 #include <memory>
 
 class Cadence : public IEntity
@@ -28,8 +25,6 @@ protected:
 	virtual void PerformUpdate() override;
 
 private:
-	//State
-	Point _position;
 	bool _moveSet;
 	Direction _moveDirection;
 	std::unique_ptr<IWeapon> _weapon;

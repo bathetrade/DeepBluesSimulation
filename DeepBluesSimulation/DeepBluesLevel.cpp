@@ -1,24 +1,25 @@
 #include "DeepBluesLevel.h"
 #include "DeepBluesHealth.h"
 #include "DeepBluesDamage.h"
-#include "Dagger.h"
+#include "Cadence.h"
 
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
 
 using namespace std;
 
 DeepBluesLevel::DeepBluesLevel(Cadence& cadence, ILogger& logger) : _cadence(cadence), _logger(logger)
 {
-	_minBounds = Point(0, 0);
-	_maxBounds = Point(8, 8);
 	InitializeHealth();
 	InitializeDamage();
+	InitializeBoard();
 }
 
 //TODO: make idempotent
 void DeepBluesLevel::Initialize()
 {
+	SetCadence();
 	SetPawns();
 	//CreateBishops();
 	//CreateRooks();
@@ -27,33 +28,18 @@ void DeepBluesLevel::Initialize()
 	//CreateKing();
 }
 
-IEntity& DeepBluesLevel::GetEntity(Point point) const
+IEntity* DeepBluesLevel::GetEntity(Point point) const
 {
-	return *(_spatialEntityMap.at(point.ToString()));
+	if (!InBounds(point))
+	{
+		return nullptr;
+	}
+	return _board[point.X][point.Y];
 }
 
 void DeepBluesLevel::RemoveEntity(IEntity& entity)
 {
-	bool entityExists = MarkEntityForDeletionIfItExists(&entity);
-
-	//Remove from spatial map (we can remove directly, since no one iterates over the spatial map)
-	if (entityExists)
-	{
-		auto entityPosition = entity.GetPosition();
-		auto spatialEntityIterator = _spatialEntityMap.find(entityPosition.ToString());
-		bool entityMissingFromSpatialMap = spatialEntityIterator == _spatialEntityMap.end();
-
-		//Log if entity is in list, but not in the spatial map (they should be consistent)
-		if (entityMissingFromSpatialMap)
-		{
-			_logger.LogLine("Entity \"" + entity.ToString() + "\" missing from spatial map!");
-		}
-		//Else, remove it
-		else
-		{
-			_spatialEntityMap.erase(spatialEntityIterator);
-		}
-	}
+	MarkEntityForDeletionIfItExists(&entity);
 }
 
 void DeepBluesLevel::RequestMove(IEntity& entity, Point newPosition)
@@ -68,29 +54,18 @@ void DeepBluesLevel::RequestMove(IEntity& entity, Point newPosition)
 	bool positionOpen = HasEntity(newPosition) == false;
 	if (positionOpen)
 	{
-		auto currentPosition = entity.GetPosition();
-		if (HasEntity(currentPosition))
-		{
-			UpdateSpatialEntity(currentPosition, newPosition);
-			entity.SetPosition(newPosition);
-		}
-		else
-		{
-			stringstream errorMsg;
-			errorMsg << "Warning: entity does not exist in spatial map. Entity: " << entity.ToString() << ". Current position: " << currentPosition.ToString() << ". New position: " << newPosition.ToString();
-			_logger.LogLine(errorMsg.str());
-		}
+		UpdateEntityPosition(&entity, newPosition);
 	}
 }
 
 void DeepBluesLevel::UpdateEntities()
 {
 	//Update non-deleted entities
-	for_each(_entities.begin(), _entities.end(), [](EntityEntry& entry)
+	for_each(_entities.begin(), _entities.end(), [](IEntity* entity)
 	{
-		if (!entry.Deleted)
+		if (entity != nullptr)
 		{
-			entry.Entity->Update();
+			entity->Update();
 		}
 	});
 
@@ -99,18 +74,35 @@ void DeepBluesLevel::UpdateEntities()
 
 bool DeepBluesLevel::HasEntity(Point point) const
 {
-	return _spatialEntityMap.find(point.ToString()) != _spatialEntityMap.end();
+	return GetEntity(point) != nullptr;
 }
 
 bool DeepBluesLevel::InBounds(Point point) const
 {
-	return point.X >= _minBounds.X && point.Y >= _minBounds.Y && 
-		point.X <= _maxBounds.X && point.Y <= _maxBounds.Y;
+	//8x8 chessboard
+	return point.X >= 0 && point.Y >= 0 &&
+		point.X < 8 && point.Y < 8;
 }
 
 void DeepBluesLevel::PrintBoard() const
 {
-
+	size_t columnWidth = GetMaxStringWidth() + 1;
+	for (int row = 0; row < 8; ++row)
+	{
+		for (int col = 0; col < 8; ++col)
+		{
+			auto entity = _board[row][col];
+			if (entity != nullptr)
+			{
+				cout << setw(columnWidth) << entity->ToString();
+			}
+			else
+			{
+				cout << setw(columnWidth) << "x";
+			}
+		}
+		cout << endl;
+	}
 }
 
 void DeepBluesLevel::SetPawnHealth(int health)
@@ -143,7 +135,6 @@ void DeepBluesLevel::SetKingHealth(int health)
 	_kingHealth = health;
 }
 
-
 void DeepBluesLevel::SetPawnDamage(int damage)
 {
 	_pawnDamage = damage;
@@ -174,12 +165,15 @@ void DeepBluesLevel::SetKingDamage(int damage)
 	_kingDamage = damage;
 }
 
-void DeepBluesLevel::UpdateSpatialEntity(Point oldPoint, Point newPoint)
+void DeepBluesLevel::UpdateEntityPosition(IEntity* entity, Point newPoint)
 {
-	auto entityIterator = _spatialEntityMap.find(oldPoint.ToString());
-	auto entityPointer = entityIterator->second;
-	_spatialEntityMap.erase(entityIterator);
-	_spatialEntityMap[newPoint.ToString()] = entityPointer;
+	auto currentPoint = entity->GetPosition();
+	if (HasEntity(currentPoint))
+	{
+		_board[currentPoint.X][currentPoint.Y] = nullptr;
+		_board[newPoint.X][newPoint.Y] = entity;
+		entity->SetPosition(newPoint);
+	}
 }
 
 void DeepBluesLevel::InitializeHealth()
@@ -202,27 +196,45 @@ void DeepBluesLevel::InitializeDamage()
 	SetKingDamage(DeepBluesDamage::DeepBlues1KingDamage);
 }
 
-void DeepBluesLevel::AddEntity(IEntity* entity, Point point)
+void DeepBluesLevel::InitializeBoard()
 {
-	_entities.emplace_back(EntityEntry(false, entity));
-	_spatialEntityMap[point.ToString()] = entity;
+	_board.resize(8);
+	for (int row = 0; row < 8; ++row)
+	{
+		_board[row].resize(8);
+	}
+}
+
+void DeepBluesLevel::AddEntity(IEntity* entity)
+{
+	//Add to board
+	auto position = entity->GetPosition();
+	_board[position.X][position.Y] = entity;
+
+	//Add to list
+	_entities.push_back(entity);
 }
 
 bool DeepBluesLevel::MarkEntityForDeletionIfItExists(IEntity* entity)
 {
-	//Mark entity for deletion, if it exists and isn't already marked
-	auto entityIterator = std::find_if(_entities.begin(), _entities.end(), [&](EntityEntry entry)
+	//Find entity
+	auto entityIterator = std::find_if(_entities.begin(), _entities.end(), [&](IEntity* e)
 	{
-		return (entry.Entity == entity) && (!entry.Deleted);
+		return e == entity;
 	});
 
-	//Does the entity exist?
 	bool entityExists = entityIterator != _entities.end();
 
-	//Set the flag that signals the list needs to be cleaned up at a later time (we can't just delete the entity, since someone may be iterating over the entities list; e.g., see UpdateEntities())
 	if (entityExists)
 	{
-		entityIterator->Deleted = true;
+		//Clear entity in board
+		auto position = (*entityIterator)->GetPosition();
+		_board[position.X][position.Y] = nullptr;
+
+		//Clear entity in list
+		*entityIterator = nullptr;
+
+		//Set flag
 		_removeDeletedEntities = true;
 	}
 
@@ -236,26 +248,49 @@ void DeepBluesLevel::CleanListIfNecessary()
 		auto it = _entities.begin();
 		while (it != _entities.end())
 		{
-			if (it->Deleted)
+			if (*it == nullptr)
 			{
 				it = _entities.erase(it);
+			}
+			else
+			{
+				++it;
 			}
 		}
 		_removeDeletedEntities = false;
 	}
 }
 
+size_t DeepBluesLevel::GetMaxStringWidth() const
+{
+	size_t width = 0;
+	for (auto entity : _entities)
+	{
+		if (entity != nullptr)
+		{
+			width = max(width, entity->ToString().size());
+		}
+	}
+	return width;
+}
+
+void DeepBluesLevel::SetCadence()
+{
+	_cadence.SetLevel(*this);
+	AddEntity(&_cadence);
+}
 
 void DeepBluesLevel::SetPawns()
 {
-	for (int col = 0; col < 8; ++col)
+	for (int i = 0; i < 1; ++i)
 	{
-		auto position = Point(1, col);
-		_pawns[col].SetHealth(_pawnHealth);
-		_pawns[col].SetDamage(_pawnDamage);
-		_pawns[col].SetPosition(position);
-		_pawns[col].SetLevel(*this);
-		_pawns[col].SetTarget(_cadence);
-		AddEntity(_pawns + col, position);
+		auto position = Point(1, i);
+		_pawns[i].SetHealth(_pawnHealth);
+		_pawns[i].SetDamage(_pawnDamage);
+		_pawns[i].SetPosition(position);
+		_pawns[i].SetLevel(*this);
+		_pawns[i].SetTarget(_cadence);
+		_pawns[i].SetBeatsPerMove(2);
+		AddEntity(&_pawns[i]);
 	}
 }

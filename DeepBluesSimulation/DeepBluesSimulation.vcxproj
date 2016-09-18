@@ -19,7 +19,6 @@
     <ClInclude Include="DeepBluesDamage.h" />
     <ClInclude Include="DeepBluesHealth.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EntityEntry.h" />
     <ClInclude Include="FileLogger.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ILevel.h" />
@@ -35,7 +34,6 @@
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="DeepBluesLevel.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EntityEntry.cpp" />
     <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="IEntity.cpp" />
     <ClCompile Include="LevelBasedEntity.cpp" />
@@ -43,7 +41,7 @@
     <ClCompile Include="Pawn.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Dagger.cpp" />
+    <ClCompile Include="Dagger.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D14096B9-4CB2-473F-A0C4-498D72F8BA61}</ProjectGuid>
@@ -82,6 +80,12 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LinkStatus>
+      </LinkStatus>
+      <ShowProgress>NotSet</ShowProgress>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>
+      </MapFileName>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

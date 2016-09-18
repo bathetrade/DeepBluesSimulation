@@ -96,9 +96,6 @@
     <ClInclude Include="PointMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityEntry.h">
-      <Filter>Header Files\Levels</Filter>
-    </ClInclude>
     <ClInclude Include="DeepBluesHealth.h">
       <Filter>Header Files\Constants\EnemyHealth\DeepBlues</Filter>
     </ClInclude>
@@ -131,19 +128,14 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="EntityEntry.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="LevelBasedEntity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dagger.cpp">
+    <ClCompile Include="Dagger.cpp">
       <Filter>Source Files\Weapons</Filter>
-    </None>
+    </ClCompile>
   </ItemGroup>
 </Project>

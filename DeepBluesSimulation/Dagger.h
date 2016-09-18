@@ -2,8 +2,9 @@
 #define DAGGER_H
 
 #include "IWeapon.h"
+#include "Point.h"
 
-class Dagger : public IWeapon
+class Dagger : public IWeapon 
 {
 public:
 	virtual bool Attack(IEntity&, ILevel&, Direction direction) override;
