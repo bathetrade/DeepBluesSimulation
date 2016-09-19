@@ -296,7 +296,7 @@ void DeepBluesLevel::SetCadence()
 
 void DeepBluesLevel::SetPawns()
 {
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
 		auto position = Point(1, i);
 		_pawns[i].SetHealth(_pawnHealth);

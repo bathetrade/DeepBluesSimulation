@@ -8,13 +8,11 @@ class ILevel;
 class IEntity
 {
 public:
+	virtual ~IEntity() {}
+
 	virtual void Update();
 	virtual std::string ToString() const = 0;
 
-	void SetLevel(ILevel& level);
-	void SetTarget(IEntity& target);
-	ILevel& GetLevel() const;
-	IEntity& GetTarget() const;
 	Point GetPosition() const;
 	void SetPosition(Point);
 	int GetHealth() const;

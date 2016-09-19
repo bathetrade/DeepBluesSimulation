@@ -1,12 +1,12 @@
 #ifndef CADENCE_H
 #define CADENCE_H
 
-#include "IEntity.h"
+#include "LevelBasedEntity.h"
 #include "Direction.h"
 #include "IWeapon.h"
 #include <memory>
 
-class Cadence : public IEntity
+class Cadence : public LevelBasedEntity
 {
 public:
 	//Constructors

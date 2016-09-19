@@ -1,13 +1,9 @@
 #include "Enemy.h"
 #include "PointMath.h"
-
+#include "ILevel.h"
 #include <numeric>
 
 using namespace std;
-
-Enemy::Enemy()
-{
-}
 
 void Enemy::SetTarget(IEntity& target)
 {
@@ -29,6 +25,7 @@ void Enemy::PerformUpdate()
 
 bool Enemy::TryAttackTarget()
 {
+	//Can the target be attacked?
 	auto targetPosition = _target->GetPosition();
 	auto attackPoints = GeneratePossibleAttacks();
 	auto attackPoint = find(attackPoints.begin(), attackPoints.end(), targetPosition);
@@ -44,18 +41,33 @@ bool Enemy::TryAttackTarget()
 
 void Enemy::TryMove()
 {
+	//Initialize
+	ILevel& level = GetLevel();
 	auto targetPosition = _target->GetPosition();
 	auto currentPosition = GetPosition();
-	auto movePoints = GeneratePossibleAttacks();
-	auto bestMove = movePoints.end();
-	int distanceToTarget = GetDistance(currentPosition, targetPosition);
 
-	//Find first move that is closer than the current move
+	//Get valid moves
+	auto movePoints = level.GetValidMoves(GeneratePossibleMoves());
+
+	//Calculate current distance to target
+	auto bestMove = movePoints.end();
+	int minimumDistanceToTarget = GetDistance(currentPosition, targetPosition);
+
+	//Find first move that is closer than the current move (if any)
 	for (auto it = movePoints.begin(); it != movePoints.end(); ++it)
 	{
-		if (GetDistance(*it, targetPosition) < distanceToTarget)
+		int distanceToTarget = GetDistance(*it, targetPosition);
+		if (distanceToTarget < minimumDistanceToTarget)
 		{
+			minimumDistanceToTarget = distanceToTarget;
 			bestMove = it;
 		}
+	}
+
+	//Move if there is a better move
+	bool betterMoveFound = (bestMove != movePoints.end());
+	if (betterMoveFound)
+	{
+		level.RequestMove(*this, *bestMove);
 	}
 }

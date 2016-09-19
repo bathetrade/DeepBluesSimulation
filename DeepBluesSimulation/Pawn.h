@@ -11,12 +11,8 @@ public:
 	Pawn();
 	virtual std::string ToString() const override;
 protected:
-	virtual void PerformUpdate() override;
-private:
-	std::vector<Point> GetAttackPoints() const;
-	Point GetMovePoint() const;
-	bool TryAttackTarget() const;
-	void TryMove();
+	virtual std::vector<Point> GeneratePossibleMoves() const override;
+	virtual std::vector<Point> GeneratePossibleAttacks() const override;
 };
 
 #endif

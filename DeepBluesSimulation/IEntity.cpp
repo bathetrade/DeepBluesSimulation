@@ -9,26 +9,6 @@ void IEntity::Update()
 	}
 }
 
-void IEntity::SetLevel(ILevel& level)
-{
-	_level = &level;
-}
-
-void IEntity::SetTarget(IEntity& target)
-{
-	_target = &target;
-}
-
-IEntity& IEntity::GetTarget() const
-{
-	return *_target;
-}
-
-ILevel& IEntity::GetLevel() const
-{
-	return *_level;
-}
-
 Point IEntity::GetPosition() const
 {
 	return _position;
