@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Constants\EnemyHealth\DeepBlues">
       <UniqueIdentifier>{53f19b10-6cf8-4ffb-86db-db09191a8e4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entities\Enemies">
+      <UniqueIdentifier>{69ef459c-c08a-479e-9030-1915c28e5a68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Enemies">
+      <UniqueIdentifier>{9f9769c0-f538-4f85-b325-c821059d94d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
@@ -90,9 +96,6 @@
     <ClInclude Include="ILogger.h">
       <Filter>Header Files\Logging</Filter>
     </ClInclude>
-    <ClInclude Include="Pawn.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="PointMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -106,7 +109,25 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bishop.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Rook.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="King.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Queen.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,17 +146,32 @@
     <ClCompile Include="IEntity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="LevelBasedEntity.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
       <Filter>Source Files\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bishop.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Rook.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="King.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Queen.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

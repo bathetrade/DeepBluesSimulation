@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bishop.h" />
     <ClInclude Include="Cadence.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Dagger.h" />
@@ -23,22 +24,31 @@
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="ILevel.h" />
     <ClInclude Include="ILogger.h" />
+    <ClInclude Include="King.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="LevelBasedEntity.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="IWeapon.h" />
     <ClInclude Include="PointMath.h" />
+    <ClInclude Include="Queen.h" />
+    <ClInclude Include="Rook.h" />
     <ClInclude Include="WeaponDamage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Cadence.cpp" />
     <ClCompile Include="DeepBluesLevel.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="IEntity.cpp" />
+    <ClCompile Include="King.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="LevelBasedEntity.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Queen.cpp" />
+    <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dagger.cpp" />

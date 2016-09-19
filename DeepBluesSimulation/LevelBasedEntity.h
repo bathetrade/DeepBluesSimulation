@@ -5,6 +5,7 @@ class ILevel;
 
 #include "IEntity.h"
 
+//For entities that must be children of a level
 class LevelBasedEntity : public IEntity
 {
 public:
