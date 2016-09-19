@@ -58,6 +58,20 @@ void DeepBluesLevel::RequestMove(IEntity& entity, Point newPosition)
 	}
 }
 
+std::vector<Point> DeepBluesLevel::GetValidMoves(const std::vector<Point>& moves)
+{
+	vector<Point> validMoves;
+	for (auto& point : moves)
+	{
+		if (!HasEntity(point) && InBounds(point))
+		{
+			validMoves.push_back(point);
+		}
+	}
+
+	return validMoves;
+}
+
 void DeepBluesLevel::UpdateEntities()
 {
 	//Update non-deleted entities

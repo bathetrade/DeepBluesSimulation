@@ -24,6 +24,7 @@ public:
 	virtual IEntity* GetEntity(Point) const override;
 	virtual void RemoveEntity(IEntity&) override;
 	virtual void RequestMove(IEntity&, Point) override;
+	virtual std::vector<Point> GetValidMoves(const std::vector<Point>&) override;
 	virtual void UpdateEntities() override;
 	virtual bool HasEntity(Point) const override;
 	virtual bool InBounds(Point) const override;
